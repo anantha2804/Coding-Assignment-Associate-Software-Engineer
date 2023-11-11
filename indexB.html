@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Survey Form</title>
+    <style>
+        *{
+            padding: 0px;
+            margin: 0px;
+            box-sizing: border-box;
+        }
+        .maincontainer {
+            
+            background-color: #645c5c;
+            
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            
+            
+        }
+
+        form {
+            background-color:deepskyblue;
+            color: rgb(14, 13, 13);
+            border: 2px solid rgb(146, 144, 140);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 500px;
+            
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 12px;
+            box-sizing: border-box;
+        }
+
+        input[type="checkbox"] {
+            width: auto;
+            margin-right: 5px;
+        }
+        .gender{
+            width: 50%;
+            display: flex;
+            justify-content: space-between;
+            
+        }
+        button {
+            background-color: #4caf50;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button.reset {
+            background-color: #f44336;
+        }
+
+        #popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            z-index: 999;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center;background-color: #645c5c;padding: 20px;">Survey Form</h1>
+    <div class="maincontainer">
+        
+        <form id="surveyForm" onsubmit="submitForm(); return false;">
+            <div class="name">
+                <label for="firstName">First Name:</label>
+                <input type="text" id="firstName" required>
+    
+                <label for="lastName">Last Name:</label>
+                <input type="text" id="lastName" required>
+            </div>
+    
+            <label for="dob">Date of Birth:</label>
+            <input type="date" id="dob" required>
+    
+            <label for="country">Country:</label>
+            <select id="country" required>
+                <option value="">Select Country</option>
+                <option value="usa">India</option>
+                <option value="uk">America</option>
+                <option value="canada">Russia</option>
+            </select>
+    
+            <label>Gender:</label>
+            <div class="gender">
+                <div>
+                    <input type="checkbox" id="male" value="Male"> <label for="male">Male</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="female" value="Female"> <label for="female">Female</label>
+                </div>
+            </div>
+    
+            <label for="profession">Profession:</label>
+            <input type="text" id="profession" required>
+    
+            <label for="email">Email:</label>
+            <input type="email" id="email" required>
+    
+            <label for="mobile">Mobile Number:</label>
+            <input type="tel" id="mobile" required>
+    
+            <button type="submit">Submit</button>
+            <button type="button" class="reset" onclick="resetForm()">Reset</button>
+        </form>
+    
+        <div id="popup"></div>
+    </div>
+
+    <script>
+        function submitForm() {
+            // Get form values
+            const firstName = document.getElementById('firstName').value;
+            const lastName = document.getElementById('lastName').value;
+            const dob = document.getElementById('dob').value;
+            const country = document.getElementById('country').value;
+
+            const genderCheckboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+            const gender = Array.from(genderCheckboxes).map(checkbox => checkbox.value).join(', ');
+
+            const profession = document.getElementById('profession').value;
+            const email = document.getElementById('email').value;
+            const mobile = document.getElementById('mobile').value;
+
+            
+            const popupContent = `
+                <p><strong>First Name:</strong> ${firstName}</p>
+                <p><strong>Last Name:</strong> ${lastName}</p>
+                <p><strong>Date of Birth:</strong> ${dob}</p>
+                <p><strong>Country:</strong> ${country}</p>
+                <p><strong>Gender:</strong> ${gender}</p>
+                <p><strong>Profession:</strong> ${profession}</p>
+                <p><strong>Email:</strong> ${email}</p>
+                <p><strong>Mobile Number:</strong> ${mobile}</p>
+            `;
+
+            document.getElementById('popup').innerHTML = popupContent;
+            document.getElementById('popup').style.display = 'block';
+
+            // Reset the form
+            resetForm();
+        }
+
+        function resetForm() {
+            document.getElementById('surveyForm').reset();
+        }
+    </script>
+
+</body>
+</html>
